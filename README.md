@@ -30,11 +30,12 @@ options:
   -c CHUNK, --chunk CHUNK
                         Chunk to fuzz the parameters. [default: 15]
   -v VALUE, --value VALUE
-                        Value for parameters to FUZZ
+                        Value for parameters to FUZZ. [default: "<b/NOOBI,"NOOBI",'NOOBI']
   -gs {normal,ignore,combine,all}, --generate-strategy {normal,ignore,combine,all}
-                        Select the mode strategy from the available choices: normal, ignore, combine, all
+                        Select the mode strategy from the available choices: (normal: Remove all parameters and put the worlist) (combine: Pitchfork combine on the existing parameters) (ignore: Don't touch
+                        the URL and put the wordlist) (all: All in one method)
   -vs {replace,suffix}, --value-strategy {replace,suffix}
-                        Select the mode strategy from the available choices: replace, suffix
+                        Select the mode strategy from the available choices: (replace: Replace the value with gathered value) (suffix: Append the value to the end of the parameters)
   -s, --silent          Silent mode
   -o OUTPUT, --output OUTPUT
                         Output results
