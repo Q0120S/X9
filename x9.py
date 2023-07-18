@@ -163,10 +163,9 @@ def main():
     parser.add_argument("-p", "--parameters", required=False, default=None, help="Parameters wordlist to fuzz.")
     parser.add_argument("-c", "--chunk", type=int, default=15, help="Chunk to fuzz the parameters. [default: 15]")
     parser.add_argument("-v", "--value", default=default_values, help="Value for parameters to FUZZ")
-    parser.add_argument("-gs", "--generate-strategy", required=True, choices=["normal", "ignore", "combine", "all"],
-                        help="Select the mode strategy from the available choices: normal, ignore, combine, all")
-    parser.add_argument("-vs", "--value-strategy", required=True, choices=["replace", "suffix"],
-                        help="Select the mode strategy from the available choices: replace, suffix")
+    parser.add_argument("-gs", "--generate-strategy", required=True, type=str, choices=["normal", "ignore", "combine", "all"], help="Select the mode strategy from the available choices:\n\t(normal: Remove all parameters and put the worlist)\n\t(combine: Pitchfork combine on the existing parameters)\n\t(ignore: Don\'t touch the URL and put the wordlist)\n\t(all: All in one method)")
+    parser.add_argument("-vs", "--value-strategy", required=True, type=str, choices=["replace", "suffix"],
+                        help="Select the mode strategy from the available choices:\n\t(replace: Replace the value with gathered value)\n\t(suffix: Append the value to the end of the parameters)")
     parser.add_argument("-s", "--silent", help="Silent mode", action="store_true")
     parser.add_argument("-o", "--output", help="Output results")
     args = parser.parse_args()
