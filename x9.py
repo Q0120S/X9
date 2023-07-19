@@ -158,14 +158,20 @@ BANNER ='''
 default_values = "<b/NOOBI,\"NOOBI\",'NOOBI'"
 
 def main():
-    parser = argparse.ArgumentParser(description="X9")
+    parser = argparse.ArgumentParser(description="X9", formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument("-l", "--list", help="List of urls to edit.")
     parser.add_argument("-p", "--parameters", required=False, default=None, help="Parameters wordlist to fuzz.")
     parser.add_argument("-c", "--chunk", type=int, default=15, help="Chunk to fuzz the parameters. [default: 15]")
     parser.add_argument("-v", "--value", default=default_values, help="Value for parameters to FUZZ. [default: \"<b/NOOBI,\"NOOBI\",'NOOBI']")
-    parser.add_argument("-gs", "--generate-strategy", required=True, type=str, choices=["normal", "ignore", "combine", "all"], help="Select the mode strategy from the available choices:\n\t(normal: Remove all parameters and put the worlist)\n\t(combine: Pitchfork combine on the existing parameters)\n\t(ignore: Don\'t touch the URL and put the wordlist)\n\t(all: All in one method)")
+    parser.add_argument("-gs", "--generate-strategy", required=True, type=str, choices=["normal", "ignore", "combine", "all"], help="""Select the mode strategy from the available choices:
+        normal: Remove all parameters and put the worlist
+        combine: Pitchfork combine on the existing parameters
+        ignore: Don't touch the URL and put the wordlist
+        all: All in one method""")
     parser.add_argument("-vs", "--value-strategy", required=True, type=str, choices=["replace", "suffix"],
-                        help="Select the mode strategy from the available choices:\n\t(replace: Replace the value with gathered value)\n\t(suffix: Append the value to the end of the parameters)")
+                        help="""Select the mode strategy from the available choices:
+        replace: Replace the value with gathered value
+        suffix: Append the value to the end of the parameters""")
     parser.add_argument("-s", "--silent", help="Silent mode", action="store_true")
     parser.add_argument("-o", "--output", help="Output results")
     args = parser.parse_args()
