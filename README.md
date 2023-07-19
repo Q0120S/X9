@@ -18,7 +18,7 @@ python3 x9.py -h
 ```
 This will display help for the tool. Here are all the switches it supports.
 ```console
-usage: x9.py [-h] [-l LIST] [-p PARAMETERS] [-c CHUNK] [-v VALUE] -gs {normal,ignore,combine,all} -vs {replace,suffix} [-s] [-o OUTPUT]
+usage: x9.py [-h] [-l LIST] [-p PARAMETERS] [-c CHUNK] [-v VALUE] [-vL VALUE_LIST] -gs {normal,ignore,combine,all} -vs {replace,suffix} [-s] [-o OUTPUT]
 
 X9
 
@@ -31,6 +31,8 @@ options:
                         Chunk to fuzz the parameters. [default: 15]
   -v VALUE, --value VALUE
                         Value for parameters to FUZZ. [default: "<b/NOOBI,"NOOBI",'NOOBI']
+  -vL VALUE_LIST, --value-list VALUE_LIST
+                        Value list for parameters to FUZZ.
   -gs {normal,ignore,combine,all}, --generate-strategy {normal,ignore,combine,all}
                         Select the mode strategy from the available choices:
                                 normal: Remove all parameters and put the worlist
