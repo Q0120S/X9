@@ -183,8 +183,6 @@ def main():
     parser.add_argument("-o", "--output", help="Output results")
     args = parser.parse_args()
 
-    if not args.silent:
-        print(BANNER)
     # Read URLs from file
     if args.list:
         temp_urls = []
@@ -343,6 +341,9 @@ def main():
                         encoded_url = urlunparse(parsed_url._replace(query=encoded_query))
                         append_if_not_exists(all_permutations, encoded_url)
 
+    if not args.output and not args.silent:
+        print(BANNER)
+    
     if args.output:
         output_result = "\n".join(all_permutations)
         with open(args.output, 'w') as output_file:
