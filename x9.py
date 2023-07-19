@@ -163,6 +163,7 @@ def main():
     parser.add_argument("-p", "--parameters", required=False, default=None, help="Parameters wordlist to fuzz.")
     parser.add_argument("-c", "--chunk", type=int, default=15, help="Chunk to fuzz the parameters. [default: 15]")
     parser.add_argument("-v", "--value", default=default_values, help="Value for parameters to FUZZ. [default: \"<b/NOOBI,\"NOOBI\",'NOOBI']")
+    parser.add_argument("-vL", "--value-list", help="Value list for parameters to FUZZ.")
     parser.add_argument("-gs", "--generate-strategy", required=True, type=str, choices=["normal", "ignore", "combine", "all"], help="""Select the mode strategy from the available choices:
         normal: Remove all parameters and put the worlist
         combine: Pitchfork combine on the existing parameters
@@ -200,7 +201,11 @@ def main():
     # Process the results as a single string instead of a list
     all_permutations = []
 
-    values = args.value.split(',')
+    if args.value_list:
+        with open(args.value_list, 'r') as file:
+            values = [line.strip() for line in file]
+    else:
+        values = args.value.split(',')
 
     for url in temp_urls:
         if args.value_strategy == "replace":
