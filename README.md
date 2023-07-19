@@ -57,6 +57,7 @@ Modes:
 * replace: It replaces the parameter's value with the given value.
 * suffix: It appends the given value to the end of each parameter's value.
 ## Running X9
+Examples:
 ```bash
 python3 x9.py -l urls.txt -c 25 -s -p top25-xss.txt -v "'NOOBI'" -gs normal -vs suffix
 ```
