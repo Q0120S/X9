@@ -6,7 +6,13 @@ from urllib.parse import urlencode, urlparse, urlunparse, parse_qs ,parse_qsl
 def append_if_not_exists(my_list, item):
     if item not in my_list:
         my_list.append(item)
-        
+
+# Remove empty URLs
+def remove_elements_not_containing_any(target_list, reference_list):
+    # Create a new list containing only the elements from the target list that have at least one element from the reference list in them
+    result_list = [item for item in target_list if any(ref_item in item for ref_item in reference_list)]
+    return result_list
+
 # Generate Strategy
 def normal_generatation_strategy(base_url,value,max_params_per_url,params_list):
     parsed_url = urlparse(base_url)
