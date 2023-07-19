@@ -32,14 +32,30 @@ options:
   -v VALUE, --value VALUE
                         Value for parameters to FUZZ. [default: "<b/NOOBI,"NOOBI",'NOOBI']
   -gs {normal,ignore,combine,all}, --generate-strategy {normal,ignore,combine,all}
-                        Select the mode strategy from the available choices: (normal: Remove all parameters and put the worlist) (combine: Pitchfork combine on the existing parameters) (ignore: Don't touch
-                        the URL and put the wordlist) (all: All in one method)
+                        Select the mode strategy from the available choices:
+                                normal: Remove all parameters and put the worlist
+                                combine: Pitchfork combine on the existing parameters
+                                ignore: Don't touch the URL and put the wordlist
+                                all: All in one method
   -vs {replace,suffix}, --value-strategy {replace,suffix}
-                        Select the mode strategy from the available choices: (replace: Replace the value with gathered value) (suffix: Append the value to the end of the parameters)
+                        Select the mode strategy from the available choices:
+                                replace: Replace the value with gathered value
+                                suffix: Append the value to the end of the parameters
   -s, --silent          Silent mode
   -o OUTPUT, --output OUTPUT
                         Output results
 ```
+It has two main features: **generate strategy**, **value strategy**:
+### Generate Strategy
+Modes:
+* normal: It removes all the parameters from the input url and then puts the parameters from the given parameters wordlist in the url.
+* combine: It uses the pitchfork method to make a combination of default parameters(key, value) and given parameters(key, value).
+* ignore: It doesn't manipulate or remove any parameters of the url and just appends the new parameters and values to the url.
+* all: It merges the results of ignore and combine modes.
+### Value Strategy
+Modes:
+* replace: It replaces the parameter's value with the given value.
+* suffix: It appends the given value to the end of each parameter's value.
 ## Running X9
 ```bash
 python3 x9.py -l urls.txt -c 25 -s -p top25-xss.txt -v "'NOOBI'" -gs normal -vs suffix
