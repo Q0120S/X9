@@ -260,7 +260,6 @@ def main():
                         encoded_query = urlencode(dict(parse_qsl(parsed_url.query)))
                         encoded_url = urlunparse(parsed_url._replace(query=encoded_query))
                         append_if_not_exists(all_permutations, encoded_url)
-                        print(encoded_url)
                         
                 elif args.generate_strategy == "combine":
                     combine_strategy = combine_generatation_strategy(url,value,args.chunk,params)
@@ -269,7 +268,6 @@ def main():
                         encoded_query = urlencode(dict(parse_qsl(parsed_url.query)))
                         encoded_url = urlunparse(parsed_url._replace(query=encoded_query))
                         append_if_not_exists(all_permutations, encoded_url)
-                        print(encoded_url)
 
                 elif args.generate_strategy == "ignore":
                     ignore_strategy = ignore_generatation_strategy(url,value,args.chunk,params)
@@ -278,7 +276,6 @@ def main():
                         encoded_query = urlencode(dict(parse_qsl(parsed_url.query)))
                         encoded_url = urlunparse(parsed_url._replace(query=encoded_query))
                         append_if_not_exists(all_permutations, encoded_url)
-                        print(encoded_url)
 
                 elif args.generate_strategy == "all":
                     combine_strategy = combine_generatation_strategy(url,value,args.chunk,params)
@@ -287,14 +284,13 @@ def main():
                         encoded_query = urlencode(dict(parse_qsl(parsed_url.query)))
                         encoded_url = urlunparse(parsed_url._replace(query=encoded_query))
                         append_if_not_exists(all_permutations, encoded_url)
-                        print(encoded_url)
+
                     ignore_strategy = ignore_generatation_strategy(url,value,args.chunk,params)
                     for result in ignore_strategy:
                         parsed_url = urlparse(result)
                         encoded_query = urlencode(dict(parse_qsl(parsed_url.query)))
                         encoded_url = urlunparse(parsed_url._replace(query=encoded_query))
                         append_if_not_exists(all_permutations, encoded_url)
-                        print(encoded_url)
                         
         elif args.value_strategy == "suffix":
             suffixed_values = []
@@ -315,7 +311,6 @@ def main():
                         encoded_query = urlencode(dict(parse_qsl(parsed_url.query)))
                         encoded_url = urlunparse(parsed_url._replace(query=encoded_query))
                         append_if_not_exists(all_permutations, encoded_url)
-                        print(encoded_url)
 
                 elif args.generate_strategy == "combine":
                     combine_strategy = combine_generatation_strategy(url,value,args.chunk,params)
@@ -324,7 +319,6 @@ def main():
                         encoded_query = urlencode(dict(parse_qsl(parsed_url.query)))
                         encoded_url = urlunparse(parsed_url._replace(query=encoded_query))
                         append_if_not_exists(all_permutations, encoded_url)
-                        print(encoded_url)
 
                 elif args.generate_strategy == "ignore":
                     ignore_strategy = ignore_generatation_strategy(url,value,args.chunk,params)
@@ -333,7 +327,6 @@ def main():
                         encoded_query = urlencode(dict(parse_qsl(parsed_url.query)))
                         encoded_url = urlunparse(parsed_url._replace(query=encoded_query))
                         append_if_not_exists(all_permutations, encoded_url)
-                        print(encoded_url)
 
                 elif args.generate_strategy == "all":
                     combine_strategy = combine_generatation_strategy(url,value,args.chunk,params)
@@ -342,19 +335,21 @@ def main():
                         encoded_query = urlencode(dict(parse_qsl(parsed_url.query)))
                         encoded_url = urlunparse(parsed_url._replace(query=encoded_query))
                         append_if_not_exists(all_permutations, encoded_url)
-                        print(encoded_url)
+
                     ignore_strategy = ignore_generatation_strategy(url,value,args.chunk,params)
                     for result in ignore_strategy:
                         parsed_url = urlparse(result)
                         encoded_query = urlencode(dict(parse_qsl(parsed_url.query)))
                         encoded_url = urlunparse(parsed_url._replace(query=encoded_query))
                         append_if_not_exists(all_permutations, encoded_url)
-                        print(encoded_url)
- 
+
     if args.output:
         output_result = "\n".join(all_permutations)
         with open(args.output, 'w') as output_file:
                 output_file.write(output_result)
+    else:
+        for i in all_permutations:
+            print(i)
 
 if __name__ == '__main__':
     main()
