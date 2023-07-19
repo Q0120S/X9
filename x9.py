@@ -122,11 +122,14 @@ def replace_value_strategy(base_url,value):
     parsed_url = urlparse(base_url)
     params = parse_qs(parsed_url.query)
     param_values_list = list(params.values())
-    
-    for param_value in param_values_list:
-        for i in param_value:
-            i = value
-            manipulated_values.append(i)
+
+    if not param_values_list:
+        manipulated_values.append(value)
+    else:
+        for param_value in param_values_list:
+            for i in param_value:
+                i = value
+                manipulated_values.append(i)
 
     return manipulated_values
 
@@ -137,10 +140,13 @@ def suffix_value_strategy(base_url,value):
     params = parse_qs(parsed_url.query)
     param_values_list = list(params.values())
 
-    for param_value in param_values_list:
-        for i in param_value:
-            i += value
-            append_if_not_exists(manipulated_values, i)
+    if not param_values_list:
+        append_if_not_exists(manipulated_values, value)
+    else:
+        for param_value in param_values_list:
+            for i in param_value:
+                i += value
+                append_if_not_exists(manipulated_values, i)
 
     return manipulated_values
 
