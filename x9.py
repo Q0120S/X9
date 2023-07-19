@@ -341,15 +341,18 @@ def main():
                         encoded_url = urlunparse(parsed_url._replace(query=encoded_query))
                         append_if_not_exists(all_permutations, encoded_url)
 
+    encoded_values = [urlencode({'value': item})[6:] for item in values]
+    filtered_list = remove_elements_not_containing_any(all_permutations, encoded_values)
+
     if not args.output and not args.silent:
         print(BANNER)
     
     if args.output:
-        output_result = "\n".join(all_permutations)
+        output_result = "\n".join(filtered_list)
         with open(args.output, 'w') as output_file:
                 output_file.write(output_result)
     else:
-        for i in all_permutations:
+        for i in filtered_list:
             print(i)
 
 if __name__ == '__main__':
