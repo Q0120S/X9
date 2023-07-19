@@ -187,12 +187,40 @@ def main():
         print(BANNER)
     # Read URLs from file
     if args.list:
+        temp_urls = []
         with open(args.list, 'r') as file:
-            temp_urls = [line.strip() for line in file]
+            unknown_urls = [line.strip() for line in file]
+            for url in unknown_urls:
+                parsed_url = urlparse(url)
+                path = parsed_url.path
+
+                if path == '' or path[-1] != '/':
+                    # Check if the URL ends with a TLD (e.g., '.com', '.org', etc.)
+                    if '.' in parsed_url.netloc:
+                        tld = parsed_url.netloc.split('.')[-1]
+                        if not tld.isdigit():  # Avoid matching IP addresses
+                            path += '/'
+                fine_url = urlunparse(parsed_url._replace(path=path))
+                append_if_not_exists(temp_urls, fine_url)
+
     elif not sys.stdin.isatty():
         temp_urls = []
+        unknown_urls = []
         for line in sys.stdin:
-            temp_urls.append(line.strip())
+            unknown_urls.append(line.strip())
+        for url in unknown_urls:
+            parsed_url = urlparse(url)
+            path = parsed_url.path
+
+            if path == '' or path[-1] != '/':
+                # Check if the URL ends with a TLD (e.g., '.com', '.org', etc.)
+                if '.' in parsed_url.netloc:
+                    tld = parsed_url.netloc.split('.')[-1]
+                    if not tld.isdigit():  # Avoid matching IP addresses
+                        path += '/'
+            fine_url = urlunparse(parsed_url._replace(path=path))
+            append_if_not_exists(temp_urls, fine_url)
+
     else:
         print("Please provide the urls list")
         sys.exit(1)
